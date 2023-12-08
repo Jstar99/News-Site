@@ -10,7 +10,10 @@ django.setup()
 
 from core.models import NewsArticle
 
-url = 'https://www.bbc.com/news'
+# url = 'https://www.bbc.com/news'
+# url = 'https://news.ycombinator.com/'
+url = 'https://realpython.github.io/fake-jobs/'
+
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
 
@@ -29,6 +32,6 @@ with open('news_data.csv', 'w', newline='', encoding='utf-8') as csvfile:
 
     writer.writeheader()
     for article in articles:
-        title = article.find('h1').text.strip()
+        title = article.find('h3').text.strip()
         link = article.find('a')['href']
         writer.writerow({'Title' : title, 'Link' : link})
